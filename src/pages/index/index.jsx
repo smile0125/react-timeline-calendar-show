@@ -32,6 +32,5 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = dispatch => ({
     actions: bindActionCreators(ActionCreaters, dispatch)
-    // defaultAction: bindActionCreators(ActionCreaters.defaultAction, dispatch)
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Index)
