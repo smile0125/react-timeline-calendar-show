@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as ActionCreaters from '../../redux/action/actionCreaters.jsx';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { Button } from 'antd';
 class Index extends Component {
     constructor(props) {
         super(props)
@@ -22,7 +23,7 @@ class Index extends Component {
         return (
             <div>
                 <h1>{ defaultState }</h1>
-                <button onClick={this.handleClick}>点击</button>
+                <Button onClick={this.handleClick}>点击</Button>
             </div>
         )
     }

@@ -1,4 +1,4 @@
-## react + redux + webpack
+## react + redux + webpack + antd
 
 ### npm install
 
