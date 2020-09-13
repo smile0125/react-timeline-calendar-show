@@ -1,18 +1,13 @@
-import { INPUT_CHANGE } from '../action/actionTypes.jsx';
+import { DEFAULT_TYPE } from '../action/actionTypes.jsx';
 const initialState = {
-    province: '北京市',
-    city: '北京市',
-    area: '东城区',
-    is_default: 0,
-    id: '',
-    buyCount: 1
+    defaultState: 'template'
 };
 const inputChangeReducer = (state = initialState, action) => {
     switch (action.type) {
-        case INPUT_CHANGE:
-            let new_state = JSON.parse(JSON.stringify(state));
-            new_state[action.payload.type] = action.payload.val;
-            return new_state;
+        case DEFAULT_TYPE:
+            let newState = JSON.parse(JSON.stringify(state));
+            newState.defaultState = action.payload.value;
+            return newState;
         default:
             return state;
     }
