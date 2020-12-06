@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
@@ -10,21 +11,20 @@ module.exports = {
     mode: 'production',
     entry: {
         bundle: path.join(__dirname, './src/index.jsx'),
-        vendor: ['react', 'react-dom','react-router-dom', 'redux']
     },
     output: {
         path: path.join(__dirname, './build'),
-        filename: 'js/[name]-[hash].js'
+        filename: 'testPlugin.js',
+        library: 'testPlugin', // 指定类库名,主要用于直接引用的方式(比如使用script 标签)
+        libraryExport: "default", // 对外暴露default属性，就可以直接调用default里的属性
+        globalObject: 'this', // 定义全局变量,兼容node和浏览器运行，避免出现"window is not defined"的情况
+        libraryTarget: 'umd' // 定义打包方式Universal Module Definition,同时支持在CommonJS、AMD和全局变量使用
     },
 
     module: {
         rules: [{
                 test: /\.(css|scss)$/,
-                use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader //将css文件单独打包出来
-                    },
-                    {
+                use: [{
                         loader: 'css-loader',
                         options: {
                             sourceMap: true
@@ -36,7 +36,9 @@ module.exports = {
                             ident: 'postcss',
                             sourceMap: true,
                             plugins: [
-                                require('autoprefixer')({overrideBrowserslist: ['> 0.15% in CN']}),
+                                require('autoprefixer')({
+                                    overrideBrowserslist: ['> 0.15% in CN']
+                                }),
                             ]
                         }
                     },
@@ -67,7 +69,6 @@ module.exports = {
     },
 
     plugins: [
-        // new BundleAnalyzerPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.join(__dirname, './public/index.html'),
@@ -76,44 +77,11 @@ module.exports = {
                 collapseWhitespace: true //删除空格
             }
         }),
-        new MiniCssExtractPlugin({ //单独打包css
-            filename: 'css/[name]-[hash].css',
-            chunkFilename: 'css/[id]-[hash].css',
-        }),
+        new MiniCssExtractPlugin(),
+
     ],
 
-    optimization: { // 一般在生产环境中用到
-        minimizer: [
-            new OptimizeCssAssetsPlugin({}), //压缩css
-            new UglifyJsPlugin({ //压缩js
-                cache: true,
-                parallel: true,
-                sourceMap: true
-            })
-        ],
-        splitChunks: {
-            chunks: 'async',
-            minSize: 30000,
-            maxSize: 0,
-            minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
-            automaticNameDelimiter: '~',
-            // automaticNameMaxLength: 30,
-            name: true,
-            cacheGroups: {
-                vendors: {
-                    test: /(react|react-dom|react-router-dom|redux)/,
-                    priority: -10,
-                    chunks: 'all',
-                    name: 'vendor'
-                },
-                default: {
-                    minChunks: 2,
-                    priority: -20,
-                    reuseExistingChunk: true
-                }
-            }
-        }
+    externals: {
+        testPlugin: "testPlugin"
     }
 };
