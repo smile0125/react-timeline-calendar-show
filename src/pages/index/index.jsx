@@ -20,7 +20,7 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        const dataSource = data;
+        const { dataSource } = this.props;
         this.setState({ dataSource });
         const { onceTimeLength } = this.state;
         const pointBlock = generateMatrix(dataSource);
