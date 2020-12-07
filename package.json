@@ -1,5 +1,5 @@
 {
-  "name": "schedule",
+  "name": "react-schedule-component",
   "version": "1.0.0",
   "description": "Calendar component schedule",
   "main": "build/schedule.js",
