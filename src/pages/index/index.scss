@@ -1,7 +1,99 @@
-.btn {
-  background: red !important;
-  font-size: 36px;
+$borderStyle:1px solid #d9d9d9;
+$targetItemWidth:2rem;
+$targetBackground: #aac3fa;
+$targetBorder: #5576d7;
+$targetBackgroundActive: #5383f2;
+
+$targetImportBackground: #fce1aa;
+$targetImportBorder: #f9c053;
+$targetImportBackgroundActive: #f9c053;
+
+// ==================================================
+body {
+    background: #f5f5f5;
 }
-.text {
-  font-size: 30px;
+
+p {
+    margin: 0;
+    padding: 0;
+}
+
+.targetBox {
+    overflow: auto;
+
+    .timeCol {
+        padding: 0;
+        overflow: auto;
+    }
+
+    .centerPointBox {
+        padding: 0 0.5rem;
+    }
+
+    .targetBoxOutRow {
+        padding: 0;
+        background: #f5f5f5;
+        display: flex;
+    }
+
+    .targetBoxRow {
+        padding: 0;
+        display: flex;
+    }
+
+    .targetBoxCol {
+        border-left: $borderStyle;
+        height: 5rem;
+        padding: 0.4rem 0;
+        position: relative;
+
+
+        &:last-child {
+            border-right: $borderStyle;
+        }
+    }
+
+    .target {
+        height: 4rem;
+        border-radius: 0.3rem;
+        line-height: $targetItemWidth - 0.4rem;
+        position: absolute;
+        left: 0;
+        top: 0.5rem;
+        z-index: 1;
+        background: #ffffff;
+        border-top: 0.3rem solid #3180ff;
+        padding-left: 0.3rem;
+        cursor: pointer;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+
+        p {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .contextTitle {
+            font-weight: bold;
+        }
+
+        .contextDes {
+            color: #afafaf;
+        }
+    }
+}
+
+.timeTitleRow {
+    padding: 0;
+    position: relative;
+
+    .timeTitleCol {
+        height: 2rem;
+        background: #ffffff;
+        line-height: 2rem;
+        padding: 0;
+        font-weight: 400
+    }
 }

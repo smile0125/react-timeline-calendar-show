@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -14,8 +15,8 @@ module.exports = {
     },
     output: {
         path: path.join(__dirname, './build'),
-        filename: 'testPlugin.js',
-        library: 'testPlugin', // 指定类库名,主要用于直接引用的方式(比如使用script 标签)
+        filename: 'schedule.js',
+        library: 'schedule', // 指定类库名,主要用于直接引用的方式(比如使用script 标签)
         libraryExport: "default", // 对外暴露default属性，就可以直接调用default里的属性
         globalObject: 'this', // 定义全局变量,兼容node和浏览器运行，避免出现"window is not defined"的情况
         libraryTarget: 'umd' // 定义打包方式Universal Module Definition,同时支持在CommonJS、AMD和全局变量使用
@@ -24,7 +25,11 @@ module.exports = {
     module: {
         rules: [{
                 test: /\.(css|scss)$/,
-                use: [{
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader //将css文件单独打包出来
+                    },
+                    {
                         loader: 'css-loader',
                         options: {
                             sourceMap: true
@@ -36,9 +41,7 @@ module.exports = {
                             ident: 'postcss',
                             sourceMap: true,
                             plugins: [
-                                require('autoprefixer')({
-                                    overrideBrowserslist: ['> 0.15% in CN']
-                                }),
+                                require('autoprefixer')({overrideBrowserslist: ['> 0.15% in CN']}),
                             ]
                         }
                     },
@@ -69,6 +72,7 @@ module.exports = {
     },
 
     plugins: [
+        // new BundleAnalyzerPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: path.join(__dirname, './public/index.html'),
@@ -77,11 +81,21 @@ module.exports = {
                 collapseWhitespace: true //删除空格
             }
         }),
-        new MiniCssExtractPlugin(),
-
+        new MiniCssExtractPlugin({ //单独打包css
+            filename: 'css/schedule.css',
+            // filename: 'css/[name]-[hash].css',
+            // chunkFilename: 'css/[id]-[hash].css',
+        }),
     ],
 
-    externals: {
-        testPlugin: "testPlugin"
+    optimization: { // 一般在生产环境中用到
+        minimizer: [
+            new OptimizeCssAssetsPlugin({}), //压缩css
+            new UglifyJsPlugin({ //压缩js
+                cache: true,
+                parallel: true,
+                sourceMap: true
+            })
+        ],
     }
 };

@@ -1,8 +1,8 @@
 {
-  "name": "testPlugin",
+  "name": "schedule",
   "version": "1.0.0",
-  "description": "Calendar component",
-  "main": "build/testPlugin.js",
+  "description": "Calendar component schedule",
+  "main": "build/schedule.js",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack --config webpack.prod.js",
