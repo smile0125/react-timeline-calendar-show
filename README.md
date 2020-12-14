@@ -1,2 +1,2 @@
 # react-schedule-component
-react日程组件
+react日程展示组件
