@@ -1,12 +1,12 @@
-## react-schedule-component
+## react-timeline-calendar
 ## Installing
 ```
-npm i react-schedule-component
+npm i react-timeline-calendar
 ```
 ## Example
 ```
 import React from 'react';
-import Schedule from 'react-schedule-component';
+import Schedule from 'react-timeline-calendar';
 class FirstPage extends React.Component {
     constructor(props){
         super(props)

@@ -20,8 +20,8 @@ class Index extends Component {
     }
 
     componentDidMount() {
-        const { dataSource } = this.props;
-        this.setState({ dataSource });
+        const { dataSource=data, defauleTimeWidth = 100 } = this.props;
+        this.setState({ dataSource, defauleTimeWidth });
         const { onceTimeLength } = this.state;
         const pointBlock = generateMatrix(dataSource);
         this.setState({ pointBlock });
@@ -33,7 +33,6 @@ class Index extends Component {
     render() {
         const { dataSource: { list=[] }, timeData, defauleTimeWidth, pointBlock } = this.state;
         const length = timeData.length;
-        let itemWidthStyle = { width: `${defauleTimeWidth}px` };
         return (
             <div style={{ overflow: "auto" }} className='targetBox'>
                 <Row>
@@ -41,10 +40,11 @@ class Index extends Component {
                         {/* 渲染时间段标题 */}
                         <Row className='timeTitleRow' style={{ maxWidth: `${(length) * defauleTimeWidth}px` }}>
                             <Col className='timeTitleCol'>
-                                <Row style={{ display: 'flex', width: `${(length) * defauleTimeWidth}px`, padding: '0 0.5rem' }}>
+                                <Row style={{ display: 'flex', width: `${(length) * defauleTimeWidth - defauleTimeWidth / 2}px`, padding: '0 0.5rem' }}>
                                     {
-                                        timeData.map((time) => {
-                                            return <Col key={time} className='timeTitleCol' style={{ ...itemWidthStyle, minWidth: defauleTimeWidth, maxWidth: defauleTimeWidth }}>{time}</Col>;
+                                        timeData.map((time, index) => {
+                                            let timeLineWidth = `${index === length - 1 ? (defauleTimeWidth - defauleTimeWidth / 2) : defauleTimeWidth}px`;
+                                            return <Col key={time} className='timeTitleCol' style={{ width: timeLineWidth, minWidth: timeLineWidth, maxWidth: defauleTimeWidth }}>{time}</Col>;
                                         })
                                     }
                                 </Row>
@@ -55,8 +55,8 @@ class Index extends Component {
                         {
                             (list || []).map((item, classIndex) => {
                                 const { taskInfo } = item;
-                                return <Row key={classIndex} className='targetBoxOutRow' style={{ width: `${(length) * defauleTimeWidth}px` }}>
-                                    <Col className='timeCol centerPointBox' style={{ minWidth: `${length * defauleTimeWidth}px` }}>
+                                return <Row key={classIndex} className='targetBoxOutRow' style={{ width: `${(length) * defauleTimeWidth - defauleTimeWidth / 2}px` }}>
+                                    <Col className='timeCol centerPointBox' style={{ minWidth: `${length * defauleTimeWidth - defauleTimeWidth / 2}px` }}>
                                         {
                                             (pointBlock[classIndex] || []).map((rowItem, rowIndex) => {
                                                 return <Row className='targetBoxRow' key={`${classIndex}-${rowIndex}`}>

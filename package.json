@@ -1,8 +1,8 @@
 {
-  "name": "react-schedule-component",
+  "name": "react-timeline-calendar",
   "version": "1.0.1",
-  "description": "Calendar component schedule",
-  "main": "build/schedule.js",
+  "description": "calendar schedule",
+  "main": "build/index.js",
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack --config webpack.prod.js",
