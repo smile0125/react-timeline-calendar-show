@@ -1,6 +1,6 @@
 {
   "name": "react-timeline-calendar",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "calendar schedule",
   "main": "build/index.js",
   "scripts": {
