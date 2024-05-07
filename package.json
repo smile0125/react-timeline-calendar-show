@@ -1,8 +1,15 @@
 {
   "name": "react-timeline-calendar",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "calendar schedule",
   "main": "build/index.js",
+  "keywords": [
+    "react",
+    "calendar",
+    "schedule",
+    "timeline",
+    "react-timeline-calendar"
+  ],
   "scripts": {
     "start": "webpack-dev-server",
     "build": "webpack --config webpack.prod.js",
@@ -50,12 +57,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/smile0125/react-redux-webpack.git"
+    "url": "git+https://github.com/smile0125/react-timeline-calendar-show"
   },
   "author": "smile0125",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/smile0125/react-redux-webpack/issues"
+    "url": "https://github.com/smile0125/react-timeline-calendar-show/issues"
   },
-  "homepage": "https://github.com/smile0125/react-redux-webpack#readme"
+  "homepage": "https://github.com/smile0125/react-timeline-calendar-show#readme"
 }
